@@ -1,0 +1,69 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://documentation.ztf.solvewithvia.com/, https://github.com/viascience/ztf-tutorial,
+  https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4 and the VIA product pages,
+  all checked 2026-09-02. DNS for status.solvewithvia.com was resolved and returned no
+  record.
+name: VIA (Via Science, Inc.) — API lifecycle
+
+versioning:
+  scheme: none-published
+  current_version: null
+  note: >-
+    VIA publishes no API version scheme. The only versioned artifact reachable publicly is
+    the Quantum Transfer sender AMI on AWS Marketplace, at v0.37.1-fix. The Keycloak realms
+    are unversioned in the OIDC sense — the discovery document is the contract and clients
+    are expected to re-read it.
+  observed_versions:
+    - artifact: Quantum Transfer, Sender (AWS Marketplace AMI)
+      version: v0.37.1-fix
+      source: https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4
+
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation policy, no Sunset/Deprecation header contract, and no notice period
+    stated anywhere on a public VIA surface.
+
+status_page:
+  present: false
+  url: null
+  note: >-
+    status.solvewithvia.com does not resolve (NXDOMAIN, checked 2026-09-02) and no
+    third-party status page (Statuspage, Instatus, Better Stack) is linked from any VIA
+    page. There is no public uptime or incident history for qt.solvewithvia.com,
+    auth.solvewithvia.com or demo.ztf.solvewithvia.com.
+
+sla:
+  published: false
+  note: No SLA, uptime target or support-response commitment is published.
+
+support:
+  channels:
+    - type: GitHub Issues
+      url: https://github.com/viascience/ztf-tutorial/issues
+      note: VIA's own README names this as "Community Support" for ZTF.
+    - type: Contact form
+      url: https://www.solvewithvia.com/contact/
+    - type: Demo request
+      url: https://www.solvewithvia.com/via-ztf/get-a-demo/
+
+deprecated_operations: []
+
+known_decay:
+  - finding: >-
+      The ZTF documentation sitemap at
+      https://documentation.ztf.solvewithvia.com/sitemap.xml (HTTP 200, lastmod 2026-09-01)
+      advertises nine URLs on the host http://ztf-doc.solvewithvia.com/, which does not
+      resolve (NXDOMAIN, checked 2026-09-02). Every canonical URL VIA publishes for its own
+      documentation points at a dead host over plain HTTP, while the live content is served
+      from documentation.ztf.solvewithvia.com.
+    impact: >-
+      A crawler or agent that walks the sitemap — the documented way to discover the ZTF
+      reference — reaches nothing. The docs are effectively undiscoverable by machine
+      despite being served correctly to a browser.
+    checked: '2026-09-02'

@@ -1,0 +1,79 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://documentation.ztf.solvewithvia.com/integration/ ,
+  https://documentation.ztf.solvewithvia.com/via-ztf-components/ and the reference
+  integrations at https://github.com/viascience/ztf-tutorial , all checked 2026-09-02.
+name: VIA (Via Science, Inc.) — integration components
+
+summary: >-
+  VIA ships no component library on a registry, but the ZTF documentation and tutorials do
+  publish a concrete, named set of client-side and deployment building blocks an integrator
+  is expected to wire together. They are recorded here because they are the actual
+  integration surface — there is no REST contract to integrate against.
+
+families:
+  - family: ZTF architecture roles
+    description: >-
+      The five named components of the Zero Trust Fabric verifiable-credential flow.
+    source: https://documentation.ztf.solvewithvia.com/via-ztf-components/
+    components:
+      - name: Verifiable Credential (VC)
+        description: Tamper-resistant digital credential representing claims about a subject, with selective disclosure of attributes.
+      - name: Issuer
+        description: Trusted authority that creates and digitally signs VCs after verifying a subject's identity and attributes.
+      - name: Verifier
+        description: Requests and validates Verifiable Presentations, cryptographically confirming issuer authenticity and credential integrity without contacting the issuer, then makes the access decision.
+      - name: VIA Wallet
+        description: Mobile holder wallet; user keeps ownership of digital identity, private keys and VCs. Social login available for onboarding.
+      - name: Decentralized Identity (DID) Registry
+        description: Server storing ephemeral keys for end-to-end encrypted communication, using a hybrid KEM combining ECDH (P-384) and ML-KEM-1024.
+
+  - family: Client-side integration
+    description: Libraries and services an application embeds to talk to ZTF.
+    source: https://documentation.ztf.solvewithvia.com/integration/
+    components:
+      - name: keycloak-js
+        description: >-
+          Standard Keycloak JavaScript adapter. VIA's own tutorials pin `keycloak-js` ^25.0.6
+          — this is the client, and it is a Keycloak project package, not a VIA one.
+        loader: npm keycloak-js
+        first_party: false
+      - name: WalletConnectService (Angular)
+        description: >-
+          VIA-authored Angular service managing the blockchain wallet session for step-up
+          authentication. Methods: initialize(wcSessionInfo), connect(renew?),
+          sendTransaction(request, vscTx, apiCall, action), disconnect().
+        first_party: true
+      - name: silent-check-sso.html
+        description: >-
+          Hidden iframe document required by the Keycloak adapter for silent SSO session
+          checks; shipped in every tutorial's public/ directory.
+        first_party: true
+      - name: signatureAuth middleware
+        description: >-
+          Server-side Express middleware verifying a VIA Wallet signature over a sensitive
+          request, sitting alongside jwtAuth. Published in
+          tutorial-2-owasp-prompt-injection/src/backend/middleware/.
+        first_party: true
+
+  - family: Deployment
+    description: How ZTF is stood up alongside an application.
+    source: https://documentation.ztf.solvewithvia.com/integration/
+    components:
+      - name: ZTF Helm chart
+        description: >-
+          Configured with keycloak.url (e.g. "https://your-keycloak-server/auth"),
+          keycloak.realm and keycloak.clientId.
+        note: >-
+          The chart itself is not published to a public Helm repository or OCI registry —
+          only its values are documented.
+        first_party: true
+      - name: Docker Compose reference stacks
+        description: >-
+          Each tutorial ships a docker-compose.yml and nginx.conf standing up the app,
+          Keycloak and (for tutorial 1) Supabase locally.
+        first_party: true
+
+component_count: 11
+registry_published: false

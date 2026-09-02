@@ -64,5 +64,18 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Via Science is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Via Science, Inc. — trading as **VIA** — is a Somerville, Massachusetts security company
+founded in 2016 that builds decentralized, quantum-resistant data and identity protection
+for governments, defense agencies and large enterprises. Its products are VIA ZTF (Zero
+Trust Fabric), VIA QT (Quantum Transfer), SLAM AI, VIA Wallet and VIA Secure Chain.
+
+VIA's public developer surface is an OpenID Connect identity layer: a Keycloak server at
+`auth.solvewithvia.com` that serves anonymous OIDC, RFC 8414 authorization-server metadata
+and UMA 2.0 discovery documents per product realm, plus server-rendered ZTF documentation
+and four runnable reference integrations on GitHub. VIA publishes no OpenAPI, GraphQL SDL,
+AsyncAPI, Protobuf or WSDL for any product.
+
+- Website: https://www.solvewithvia.com/
+- ZTF documentation: https://documentation.ztf.solvewithvia.com/
+- GitHub: https://github.com/viascience
+- OIDC discovery (QT realm): https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration

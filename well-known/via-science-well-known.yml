@@ -1,0 +1,116 @@
+generated: '2026-09-02'
+method: probed
+source: >-
+  Live GET of the named /.well-known/ path list against every VIA (Via Science, Inc.)
+  host discovered in STEP 0b: the marketing site, the Keycloak identity host, the ZTF
+  documentation host and the Quantum Transfer application host.
+name: VIA (Via Science, Inc.) — well-known probe
+note: >-
+  VIA serves no /.well-known/ document from the root of any of its web hosts. The real
+  hits are REALM-SCOPED on the Keycloak identity server at auth.solvewithvia.com, which
+  publishes a full OpenID Connect discovery document, an OAuth 2.0 authorization-server
+  metadata document (RFC 8414) and a UMA 2.0 configuration for each product realm. Those
+  paths are recorded below with the exact path that answered. The documentation host
+  (documentation.ztf.solvewithvia.com) answers 200 with the same 15,246-byte HTML shell
+  for every /.well-known/* path, which is a single-page-app catch-all and NOT a document —
+  it is recorded as a miss. qt.solvewithvia.com 302s every path to the Keycloak realm
+  login, so nothing anonymous is served there.
+
+hosts:
+  - host: www.solvewithvia.com
+    note: WordPress marketing site. No /.well-known/ document served.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+
+  - host: auth.solvewithvia.com
+    note: >-
+      Keycloak identity server. Root /.well-known/* paths 404; discovery is served per
+      realm under /auth/realms/<realm>/.well-known/. Two product realms answer
+      anonymously: `qt` (Quantum Transfer) and `ztf_demo` (Zero Trust Fabric demo).
+    documents:
+      - path: /auth/realms/qt/.well-known/openid-configuration
+        status: 200
+        file: well-known/via-science-qt-openid-configuration.json
+      - path: /auth/realms/ztf_demo/.well-known/openid-configuration
+        status: 200
+        file: well-known/via-science-ztf-demo-openid-configuration.json
+      - path: /auth/realms/ztf_demo/.well-known/oauth-authorization-server
+        status: 200
+        file: well-known/via-science-ztf-demo-oauth-authorization-server.json
+      - path: /auth/realms/ztf_demo/.well-known/uma2-configuration
+        status: 200
+        file: well-known/via-science-ztf-demo-uma2-configuration.json
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+
+  - host: documentation.ztf.solvewithvia.com
+    note: >-
+      Answers HTTP 200 with an identical 15,246-byte HTML shell for every path probed,
+      including /openapi.json, /swagger.json, /llms.txt and /.well-known/security.txt.
+      A soft-200 SPA catch-all is not a document; every row below is a MISS.
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+
+  - host: qt.solvewithvia.com
+    note: >-
+      Quantum Transfer web application. Every path 302s to the Keycloak `qt` realm
+      authorization endpoint; nothing is served anonymously.
+    documents:
+      - path: /.well-known/security.txt
+        status: 302
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 302
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 302
+        file: null
+
+summary:
+  hosts_probed: 4
+  documents_served: 4
+  security_txt: false
+  api_catalog: false
+  agent_card: false
+  openid_configuration: true

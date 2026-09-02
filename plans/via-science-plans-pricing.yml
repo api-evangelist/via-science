@@ -1,0 +1,65 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4 (AWS Marketplace listing
+  "Quantum Transfer, Sender - AWS Metered", seller VIA Science) and
+  https://www.solvewithvia.com/via-qt/ , both fetched 2026-09-02.
+name: VIA (Via Science, Inc.) — plans and pricing
+
+summary: >-
+  VIA publishes no pricing page of its own. Every product page ends in a "Get a demo" form.
+  The single public, itemised price VIA has put in the market is the AWS Marketplace
+  metered listing for the Quantum Transfer sender, at $1.00 per GB transferred with no
+  upfront commitment and no recurring flat fee.
+
+plans:
+  - name: Quantum Transfer, Sender — AWS Metered
+    channel: AWS Marketplace
+    url: https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4
+    price: '1.00'
+    currency: USD
+    billing_period: metered / usage-based
+    unit: GB of data transferred
+    included_quota: null
+    overage: 'n/a — every GB is metered at the same $1.00 rate'
+    commitment: none
+    free_tier: AWS Free Tier eligible
+    delivery_method: Amazon Machine Image (AMI), 64-bit x86, AmazonLinux
+    version: v0.37.1-fix
+    limits: []
+    note: >-
+      VIA's stated refund policy on this listing is that successfully transferred data is
+      considered consumed and non-refundable.
+
+  - name: VIA QT (web application)
+    channel: Direct / enterprise
+    url: https://www.solvewithvia.com/via-qt/
+    price: null
+    currency: null
+    billing_period: null
+    included_quota: >-
+      A promotional "500GB of FREE Data Transfers this month" offer was live on the VIA QT
+      page on 2026-09-02.
+    note: >-
+      No list price. The page states "No expensive licenses or lock-in" and routes to
+      https://www.solvewithvia.com/via-qt/get-a-demo/.
+
+  - name: VIA ZTF (Zero Trust Fabric)
+    channel: Direct / enterprise
+    url: https://www.solvewithvia.com/via-ztf/
+    price: null
+    currency: null
+    billing_period: null
+    note: >-
+      No pricing published. Access is via https://www.solvewithvia.com/via-ztf/get-a-demo/.
+      A free public demo environment and full tutorial stack are published, but no
+      self-serve paid tier exists.
+
+plan_count: 3
+public_price_points: 1
+self_serve_signup: false
+note: >-
+  Only one of the three entries carries a real number. The other two are recorded so the
+  absence of a price is visible rather than implied — VIA is a demo-gated enterprise and
+  government vendor, and its only itemised public price reaches buyers through AWS
+  Marketplace rather than its own site.

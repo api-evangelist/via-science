@@ -1,0 +1,79 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://github.com/viascience/ztf-tutorial (README and per-tutorial .env.example,
+  docker-compose.yml), https://demo.ztf.solvewithvia.com/ (probed, HTTP 302 to the
+  Keycloak `ztf_demo` realm) and https://documentation.ztf.solvewithvia.com/tutorial/ ,
+  all checked 2026-09-02.
+name: VIA (Via Science, Inc.) — sandbox and test environments
+
+summary: >-
+  VIA runs two things a developer can exercise before buying: a hosted ZTF demo environment
+  and three fully runnable local reference stacks. Neither is self-serve — the hosted demo
+  redirects straight to a Keycloak login on the `ztf_demo` realm and VIA does not publish a
+  signup path or any test credentials — but the local stacks stand up a complete Keycloak
+  + application environment on a laptop with Docker Compose and are the honest sandbox here.
+
+environments:
+  - name: ZTF hosted demo
+    url: https://demo.ztf.solvewithvia.com/
+    type: hosted-demo
+    status: gated
+    http_status: 302
+    auth: >-
+      302 to
+      https://auth.solvewithvia.com/auth/realms/ztf_demo/protocol/openid-connect/auth
+      (client_id ztf-demo-app, Authorization Code + PKCE S256).
+    credentials_published: false
+    note: >-
+      VIA links this from the ZTF product page and the tutorial README as "Try it live", but
+      no demo account, invite link or self-registration is published. Access appears to run
+      through https://www.solvewithvia.com/via-ztf/get-a-demo/.
+
+  - name: tutorial-1-Passwordless
+    url: https://github.com/viascience/ztf-tutorial/tree/master/tutorial-1-Passwordless
+    type: local-stack
+    status: runnable
+    stack: React 18, keycloak-js 25.0.6, Docker, nginx
+    note: Passwordless OAuth 2.0 / OIDC with PKCE against a ZTF-backed Keycloak realm.
+
+  - name: tutorial-1-Passwordless-Cursor
+    url: https://github.com/viascience/ztf-tutorial/tree/master/tutorial-1-Passwordless-Cursor
+    type: local-stack
+    status: runnable
+    stack: Next.js 15 App Router, Keycloak, Supabase (local, port 54321), Docker Compose
+    note: >-
+      Encrypted HTTP-only session cookies, Supabase Row Level Security, three-layer logout,
+      30s session-validation interval.
+
+  - name: tutorial-2-step-up-auth
+    url: https://github.com/viascience/ztf-tutorial/tree/master/tutorial-2-step-up-auth
+    type: local-stack
+    status: runnable
+    stack: React, WalletConnect v2, Keycloak, Docker
+    note: >-
+      Wallet-signature step-up for sensitive transactions, including the agentic-browser
+      protection case.
+
+  - name: tutorial-2-owasp-prompt-injection
+    url: https://github.com/viascience/ztf-tutorial/tree/master/tutorial-2-owasp-prompt-injection
+    type: local-stack
+    status: runnable
+    stack: React, Express backend, OpenAI or Anthropic LLM, WalletConnect v2
+    note: >-
+      Demonstrates an LLM agent driven to call a sensitive endpoint by prompt injection, and
+      the wallet signature blocking it. Ships a mock API catalog (/api/regular/*,
+      /api/sensitive/*) with per-endpoint riskLevel and securityRequirements — these are
+      demo fixtures, NOT a VIA product API.
+
+test_configuration:
+  mode_switch: 'SIGNATURE_VALIDATION=demo | strict (tutorial-2 backend)'
+  demo_flags: [DEMO_MODE, ENABLE_INJECTION_SCENARIOS, ENABLE_CUSTOM_INJECTIONS]
+  note: >-
+    All configuration is by .env.example placeholder — VIA publishes no test keys, no test
+    realm credentials, no fixture accounts and no seeded identities. Every value in the
+    published .env.example files is a placeholder string the integrator must replace.
+
+test_credentials_published: false
+test_data_published: false
+time_simulation: false

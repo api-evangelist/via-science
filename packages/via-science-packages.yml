@@ -1,0 +1,88 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  npm registry search (registry.npmjs.org/-/v1/search for "via-ztf", "viascience",
+  "solvewithvia"), PyPI JSON API (pypi.org/pypi/<name>/json for via-ztf, viascience,
+  via-science, quantum-transfer — all 404), the iTunes lookup API
+  (itunes.apple.com/lookup?id=6479538897), Google Play, AWS Marketplace and the
+  github.com/viascience organization, all checked 2026-09-02.
+name: VIA (Via Science, Inc.) — published packages and distributions
+
+summary: >-
+  VIA publishes NO first-party client SDK on any language registry. Integration with VIA
+  Zero Trust Fabric is done with the standard Keycloak clients — VIA's own tutorials depend
+  on `keycloak-js` from the Keycloak project, not on a VIA package — plus a Helm chart whose
+  values are documented but whose chart is not published to a public registry. What VIA does
+  distribute publicly is end-user and appliance software: the VIA Wallet mobile apps and the
+  Quantum Transfer sender AMI on AWS Marketplace.
+
+packages:
+  - name: VIA Wallet (iOS)
+    registry: app-store
+    official: true
+    url: https://apps.apple.com/us/app/via-wallet/id6479538897
+    bundle_id: com.solvewithvia.wallet
+    version: 2.270.2
+    published: '2026-08-31'
+    language: null
+    kind: mobile-app
+    note: >-
+      Seller of record "VIA Science, Inc.", which is the ownership confirmation for this
+      profile. Holder wallet in the ZTF verifiable-credential flow and the signer for
+      step-up authentication. Version and date read from the iTunes lookup API.
+
+  - name: VIA Wallet (Android)
+    registry: google-play
+    official: true
+    url: https://play.google.com/store/apps/details?id=com.solvewithvia.wallet
+    bundle_id: com.solvewithvia.wallet
+    version: null
+    published: null
+    language: null
+    kind: mobile-app
+    note: >-
+      Listed and linked from https://www.solvewithvia.com/wallet/. Google Play publishes no
+      unauthenticated metadata endpoint, so version and release date are recorded as null —
+      checked, not guessable.
+
+  - name: Quantum Transfer, Sender - AWS Metered
+    registry: aws-marketplace
+    official: true
+    url: https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4
+    version: v0.37.1-fix
+    published: null
+    language: null
+    kind: ami
+    note: >-
+      64-bit x86 Amazon Machine Image on AmazonLinux, metered at $1.00 per GB transferred.
+      AWS Marketplace does not publish a machine-readable release date for the version, so
+      `published` is null; the version string is read from the listing.
+
+  - name: ztf-tutorial
+    registry: github
+    official: true
+    url: https://github.com/viascience/ztf-tutorial
+    version: null
+    published: '2026-05-01'
+    language: TypeScript
+    kind: sample-code
+    note: >-
+      VIA Zero Trust Fabric tutorials — three runnable reference integrations (React +
+      Keycloak passwordless, Next.js 15 + Supabase + Keycloak, WalletConnect step-up auth)
+      plus an OWASP prompt-injection demo. Not a package: unversioned, unreleased, no
+      registry entry. `published` is the last push date from the GitHub API. This is the
+      closest thing VIA ships to an SDK.
+
+sdk_count: 0
+official_sdk_count: 0
+registry_published_sdks: []
+
+gaps:
+  - >-
+    No npm, PyPI, Maven Central, NuGet, RubyGems, Packagist, crates.io or pkg.go.dev
+    package is published under any VIA name. An integrator writes their own Keycloak client.
+  - >-
+    The ZTF Helm chart is documented by its values (keycloak.url, keycloak.realm,
+    keycloak.clientId) at https://documentation.ztf.solvewithvia.com/integration/ but the
+    chart itself is not published to a public Helm repository or OCI registry, so the
+    documented install path cannot actually be followed by a member of the public.

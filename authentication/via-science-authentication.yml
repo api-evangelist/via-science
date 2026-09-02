@@ -1,0 +1,165 @@
+generated: '2026-09-02'
+method: probed
+source: >-
+  https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration (HTTP 200)
+  and https://auth.solvewithvia.com/auth/realms/ztf_demo/.well-known/openid-configuration
+  (HTTP 200), fetched anonymously 2026-09-02; corroborated by the VIA ZTF integration guide
+  at https://documentation.ztf.solvewithvia.com/integration/ and the tutorial sources at
+  https://github.com/viascience/ztf-tutorial.
+name: VIA (Via Science, Inc.) — authentication profile
+docs: https://documentation.ztf.solvewithvia.com/integration/
+
+summary: >-
+  VIA does not publish an API-key surface. Every VIA product surface — the Quantum Transfer
+  (QT) application, the ZTF demo, and any application a customer integrates with VIA Zero
+  Trust Fabric — authenticates through a VIA-operated Keycloak identity server at
+  auth.solvewithvia.com using OpenID Connect Authorization Code + PKCE. The discovery
+  document is served anonymously per realm, so the full endpoint set, signing algorithms,
+  grant types and client-authentication methods are machine-readable without credentials.
+  ZTF layers decentralized identity on top: passwordless login backed by W3C Verifiable
+  Credentials held in the VIA Wallet, with wallet-signature step-up for sensitive actions.
+
+schemes:
+  - name: openIdConnect
+    type: openIdConnect
+    in: header
+    scheme: bearer
+    format: JWT
+    openIdConnectUrl: https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration
+    description: >-
+      OpenID Connect on the VIA Keycloak realm `qt` (Quantum Transfer). Browser clients use
+      Authorization Code with PKCE (S256); the resulting access token is presented as an
+      HTTP Authorization: Bearer JWT.
+    source: well-known/via-science-qt-openid-configuration.json
+
+  - name: openIdConnect-ztf-demo
+    type: openIdConnect
+    in: header
+    scheme: bearer
+    format: JWT
+    openIdConnectUrl: https://auth.solvewithvia.com/auth/realms/ztf_demo/.well-known/openid-configuration
+    description: >-
+      OpenID Connect on the VIA Keycloak realm `ztf_demo`, the realm backing the public ZTF
+      demo at https://demo.ztf.solvewithvia.com/ and the published tutorials.
+    source: well-known/via-science-ztf-demo-openid-configuration.json
+
+  - name: mutualTLS
+    type: mutualTLS
+    description: >-
+      The discovery document advertises `tls_client_auth` as a client-authentication method
+      and `tls_client_certificate_bound_access_tokens: true` (RFC 8705 certificate-bound
+      access tokens). Available, not required.
+    source: well-known/via-science-qt-openid-configuration.json
+
+  - name: wallet-signature-step-up
+    type: signature
+    in: body
+    description: >-
+      ZTF step-up authentication. Sensitive operations require an additional digital
+      signature produced by the user's VIA Wallet over WalletConnect v2, verified
+      server-side before the action is allowed. Documented in tutorial-2-step-up-auth and
+      tutorial-2-owasp-prompt-injection, whose backend ships both a jwtAuth and a
+      signatureAuth middleware.
+    source: https://github.com/viascience/ztf-tutorial/tree/master/tutorial-2-step-up-auth
+    note: >-
+      This is VIA's stated defence against an AI agent acting on a user's behalf without
+      explicit consent — the bearer token alone is not sufficient for a sensitive call.
+
+endpoints:
+  qt:
+    issuer: https://auth.solvewithvia.com/auth/realms/qt
+    authorization: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/auth
+    token: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/token
+    userinfo: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/userinfo
+    jwks: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/certs
+    end_session: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/logout
+    introspection: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/token/introspect
+    revocation: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/revoke
+    registration: https://auth.solvewithvia.com/auth/realms/qt/clients-registrations/openid-connect
+    device_authorization: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/auth/device
+    pushed_authorization_request: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/ext/par/request
+    backchannel_authentication: https://auth.solvewithvia.com/auth/realms/qt/protocol/openid-connect/ext/ciba/auth
+  ztf_demo:
+    issuer: https://auth.solvewithvia.com/auth/realms/ztf_demo
+    authorization: https://auth.solvewithvia.com/auth/realms/ztf_demo/protocol/openid-connect/auth
+    token: https://auth.solvewithvia.com/auth/realms/ztf_demo/protocol/openid-connect/token
+    userinfo: https://auth.solvewithvia.com/auth/realms/ztf_demo/protocol/openid-connect/userinfo
+    jwks: https://auth.solvewithvia.com/auth/realms/ztf_demo/protocol/openid-connect/certs
+    end_session: https://auth.solvewithvia.com/auth/realms/ztf_demo/protocol/openid-connect/logout
+    uma2_resource_registration: https://auth.solvewithvia.com/auth/realms/ztf_demo/authz/protection/resource_set
+    uma2_permission: https://auth.solvewithvia.com/auth/realms/ztf_demo/authz/protection/permission
+    uma2_policy: https://auth.solvewithvia.com/auth/realms/ztf_demo/authz/protection/uma-policy
+
+grant_types_supported:
+  - authorization_code
+  - client_credentials
+  - implicit
+  - password
+  - refresh_token
+  - urn:ietf:params:oauth:grant-type:device_code
+  - urn:ietf:params:oauth:grant-type:jwt-bearer
+  - urn:ietf:params:oauth:grant-type:token-exchange
+  - urn:ietf:params:oauth:grant-type:uma-ticket
+  - urn:openid:params:grant-type:ciba
+
+client_authentication_methods:
+  - private_key_jwt
+  - client_secret_basic
+  - client_secret_post
+  - tls_client_auth
+  - client_secret_jwt
+
+token_format: JWT
+id_token_signing_algs:
+  - RS256
+  - RS384
+  - RS512
+  - PS256
+  - PS384
+  - PS512
+  - ES256
+  - ES384
+  - ES512
+  - EdDSA
+  - HS256
+  - HS384
+  - HS512
+
+features:
+  pkce: true
+  pkce_methods: [plain, S256]
+  dpop: true
+  pushed_authorization_requests: true
+  par_required: false
+  dynamic_client_registration: true
+  device_authorization_grant: true
+  ciba: true
+  token_exchange: true
+  uma2: true
+  mtls_bound_access_tokens: true
+  front_channel_logout: true
+  back_channel_logout: true
+  request_object: true
+  claims_parameter: true
+
+claims_supported:
+  [iss, sub, aud, exp, iat, auth_time, name, given_name, family_name,
+   preferred_username, email, acr, azp, nonce]
+
+acr_values_supported: ['0', '1']
+
+api_keys:
+  supported: false
+  note: >-
+    No API-key issuance is documented on any public VIA surface. Machine-to-machine access
+    would use the OIDC `client_credentials` grant advertised by the realms above; client
+    provisioning is not self-serve — it goes through the "Get a demo" form.
+
+gaps:
+  - >-
+    No OpenAPI or other machine-readable REST contract is published for any VIA product,
+    so the securitySchemes above are recorded from the OIDC discovery documents and the
+    integration guide rather than derived from a spec.
+  - >-
+    No public self-serve signup: realm clients are provisioned by VIA. The auth surface is
+    fully readable anonymously; the resource APIs behind it are not.

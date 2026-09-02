@@ -1,0 +1,108 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://documentation.ztf.solvewithvia.com/integration/ ,
+  https://documentation.ztf.solvewithvia.com/ztf-flow/ , the reference integrations at
+  https://github.com/viascience/ztf-tutorial and the OIDC discovery documents saved under
+  well-known/, all checked 2026-09-02.
+name: VIA (Via Science, Inc.) — API conventions
+
+scope_note: >-
+  VIA publishes no REST resource contract. The only cross-cutting semantics that are
+  actually documented and observable belong to the authentication and session layer. Every
+  field below is recorded at the confidence the published surface supports, and the ones
+  nobody can observe are marked `unknown` rather than guessed.
+
+authentication:
+  style: OpenID Connect Authorization Code + PKCE (S256), bearer JWT on the wire
+  header: 'Authorization: Bearer <access_token>'
+  discovery: https://auth.solvewithvia.com/auth/realms/{realm}/.well-known/openid-configuration
+  step_up: >-
+    Sensitive operations additionally require a VIA Wallet signature over WalletConnect v2,
+    verified by a server-side signatureAuth middleware. acr 0/1 is the context class the
+    realm exposes for this.
+  cross_ref: authentication/via-science-authentication.yml
+
+session:
+  storage: >-
+    Tutorial 1 (Next.js) stores the session in an encrypted HTTP-only cookie, never in
+    localStorage; a 32+ character SESSION_SECRET is required.
+  validation_interval: 30000 ms (SESSION_VALIDATION_INTERVAL)
+  logout: >-
+    Three-layer logout — local session cookie cleared, Keycloak end_session_endpoint called
+    with id_token_hint and post_logout_redirect_uri, and back-channel logout supported by
+    the realm.
+  recovery: >-
+    WalletConnect sessions persist across browser refresh; WalletConnectService.initialize()
+    rehydrates from the Keycloak user profile ("zero-config setup").
+
+pagination:
+  style: unknown
+  note: No resource contract is published, so no pagination convention is observable.
+
+field_expansion:
+  supported: unknown
+
+metadata:
+  supported: unknown
+
+request_id_tracing:
+  supported: unknown
+  note: >-
+    No correlation-id or request-id header is documented. ZTF does maintain "an immutable
+    record of every prompt, response, and data transformation" for SLAM AI, but that is an
+    internal audit log, not a client-visible trace header.
+
+versioning:
+  style: none-published
+  cross_ref: lifecycle/via-science-lifecycle.yml
+
+error_envelope:
+  format: unknown
+  rfc9457: false
+  note: >-
+    No error contract is published. The only error semantics reachable anonymously are
+    Keycloak's own OAuth 2.0 error responses (RFC 6749 §5.2 `error` / `error_description`)
+    from the token and authorization endpoints.
+
+rate_limit_signaling:
+  headers: []
+  cross_ref: rate-limits/via-science-rate-limits.yml
+
+idempotency:
+  supported: unknown
+  header: null
+  scope: null
+  retention: null
+  note: >-
+    No idempotency key, header or retry-safety guidance is documented on any public VIA
+    surface. Recorded as unknown, not as absent — there is no write contract to judge.
+
+dry_run_mode:
+  supported: na
+  note: No public write surface, so there is nothing to rehearse.
+
+reversibility:
+  grade: na
+  state: na
+  reversal_operations: []
+  windows: []
+  note: >-
+    VIA publishes no public write API, so there is no operation an agent could take that it
+    would need to be able to take back — reversibility is `na` rather than absent. The one
+    consequential action a VIA product does expose to an agent-adjacent context is a
+    Quantum Transfer data send, and VIA's own AWS Marketplace terms state the opposite of
+    reversible: "successfully transferred data is considered consumed and non-refundable".
+    That is a stated irreversibility, and it is recorded here precisely because an agent
+    operating a QT transfer needs to know the action is terminal. No cancel, void, recall or
+    undo operation is documented for a transfer in flight.
+  evidence:
+    - claim: transferred data is consumed and non-refundable
+      url: https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4
+      checked: '2026-09-02'
+
+gaps:
+  - >-
+    A machine integrating with VIA can fully read the auth layer and nothing else. Every
+    convention that governs actually calling a VIA product — pagination, errors, retries,
+    idempotency, tracing — is undocumented because no product contract is published.

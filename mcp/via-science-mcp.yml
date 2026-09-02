@@ -1,0 +1,35 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  Searched the VIA site (all 27 pages in
+  https://www.solvewithvia.com/page-sitemap.xml), the ZTF documentation at
+  https://documentation.ztf.solvewithvia.com/, the three public repositories in
+  https://github.com/viascience, and DNS for mcp.solvewithvia.com (NXDOMAIN, 2026-09-02).
+name: VIA (Via Science, Inc.) — MCP server
+status: none
+
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+
+tools: []
+
+note: >-
+  VIA ships no Model Context Protocol server, hosted or local. No mcp.solvewithvia.com host
+  exists, no npm/PyPI package is published under any VIA name, and MCP is not mentioned in
+  the documentation, the tutorials or any product page. No candidate tool list is derived
+  either, because VIA publishes no OpenAPI to derive one from.
+
+agent_posture:
+  note: >-
+    Worth recording rather than leaving blank: VIA's public agent posture is defensive, not
+    integrative. The ztf-tutorial repository ships an OWASP prompt-injection demo whose
+    stated purpose is showing an LLM agent being driven to call a sensitive endpoint and a
+    VIA Wallet signature refusing it, and the step-up tutorial advertises "Agentic Browser
+    Protection". VIA is building the consent gate an agent runs into, not an agent-callable
+    surface of its own.
+  source: https://github.com/viascience/ztf-tutorial

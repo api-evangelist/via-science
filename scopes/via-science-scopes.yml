@@ -1,0 +1,90 @@
+generated: '2026-09-02'
+method: probed
+source: >-
+  scopes_supported read verbatim from the anonymously-served OpenID Connect discovery
+  documents at https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration
+  (HTTP 200) and https://auth.solvewithvia.com/auth/realms/ztf_demo/.well-known/openid-configuration
+  (HTTP 200), fetched 2026-09-02.
+name: VIA (Via Science, Inc.) — OAuth 2.0 / OIDC scopes
+docs: null
+docs_note: >-
+  VIA publishes no scope or permissions reference page. Everything below is read from the
+  realm discovery documents. The scope set is the Keycloak default profile — VIA has not
+  declared product-specific scopes (no `qt:transfer`, `ztf:*` or similar) on any realm that
+  answers anonymously, so an integrator cannot see a resource-permission model from outside.
+
+realms:
+  - realm: qt
+    product: Quantum Transfer (QT)
+    issuer: https://auth.solvewithvia.com/auth/realms/qt
+  - realm: ztf_demo
+    product: Zero Trust Fabric (ZTF) demo
+    issuer: https://auth.solvewithvia.com/auth/realms/ztf_demo
+
+scopes:
+  - name: openid
+    description: Required OpenID Connect scope; requests an ID token.
+    realms: [qt, ztf_demo]
+    standard: OpenID Connect Core 1.0
+  - name: profile
+    description: Standard OIDC profile claims (name, given_name, family_name, preferred_username).
+    realms: [qt, ztf_demo]
+    standard: OpenID Connect Core 1.0
+  - name: email
+    description: Standard OIDC email claims.
+    realms: [qt, ztf_demo]
+    standard: OpenID Connect Core 1.0
+  - name: address
+    description: Standard OIDC address claim.
+    realms: [qt, ztf_demo]
+    standard: OpenID Connect Core 1.0
+  - name: phone
+    description: Standard OIDC phone_number claims.
+    realms: [qt, ztf_demo]
+    standard: OpenID Connect Core 1.0
+  - name: offline_access
+    description: Requests a refresh token usable while the user is offline.
+    realms: [qt, ztf_demo]
+    standard: OpenID Connect Core 1.0
+  - name: roles
+    description: Keycloak client/realm role mappings in the token.
+    realms: [qt, ztf_demo]
+    standard: Keycloak default client scope
+  - name: web-origins
+    description: Injects allowed CORS web origins into the token.
+    realms: [qt, ztf_demo]
+    standard: Keycloak default client scope
+  - name: acr
+    description: Authentication Context Class Reference claim; carries the step-up level.
+    realms: [qt, ztf_demo]
+    standard: Keycloak default client scope
+  - name: basic
+    description: Minimal claim set (sub, iss, aud, exp, iat, auth_time).
+    realms: [qt, ztf_demo]
+    standard: Keycloak default client scope
+  - name: microprofile-jwt
+    description: Eclipse MicroProfile JWT claims (upn, groups).
+    realms: [qt, ztf_demo]
+    standard: Keycloak optional client scope
+  - name: service_account
+    description: Claims for client_credentials service-account tokens.
+    realms: [qt, ztf_demo]
+    standard: Keycloak optional client scope
+
+scope_count: 12
+product_specific_scopes: 0
+
+acr_values_supported: ['0', '1']
+acr_note: >-
+  acr 0/1 is the hook ZTF step-up authentication uses — a sensitive operation is gated on a
+  higher authentication context, satisfied by a VIA Wallet signature rather than a second
+  password factor.
+
+uma2:
+  supported: true
+  resource_registration_endpoint: https://auth.solvewithvia.com/auth/realms/ztf_demo/authz/protection/resource_set
+  permission_endpoint: https://auth.solvewithvia.com/auth/realms/ztf_demo/authz/protection/permission
+  policy_endpoint: https://auth.solvewithvia.com/auth/realms/ztf_demo/authz/protection/uma-policy
+  note: >-
+    UMA 2.0 is enabled on the realm, so fine-grained resource permissions exist at runtime
+    even though no static scope catalog is published.

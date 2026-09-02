@@ -1,23 +1,161 @@
 aid: via-science
 name: Via Science
-description: 'Via Science is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Via Science, Inc. — trading as VIA — is a Somerville, Massachusetts security company
+  founded in 2016 that builds decentralized, quantum-resistant data and identity protection
+  for governments, defense agencies and large enterprises. Its products are VIA ZTF (Zero
+  Trust Fabric), a passwordless authentication fabric built on verifiable credentials, a
+  decentralized identity registry and a mobile holder wallet; VIA QT (Quantum Transfer), an
+  end-to-end quantum-resistant large-file transfer service sold direct and as a metered AWS
+  Marketplace AMI; SLAM AI, which lets organizations use generative AI models without
+  exposing confidential data and keeps an immutable record of every prompt, response and
+  data transformation; VIA Wallet; and VIA Secure Chain. VIA raised a $28M Series B led by
+  Bosch Ventures with BMW i Ventures, MassMutual Ventures and Sentinel Global. Its
+  developer surface is an OpenID Connect identity layer — a Keycloak server at
+  auth.solvewithvia.com that serves anonymous OIDC, RFC 8414 and UMA 2.0 discovery
+  documents per product realm — plus ZTF documentation and four runnable reference
+  integrations on GitHub. VIA publishes no OpenAPI or other resource contract for any
+  product.
+image: https://www.solvewithvia.com/wp-content/uploads/2025/02/solve-with-VIA-home-page-preview-image.png
 url: https://raw.githubusercontent.com/api-evangelist/via-science/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-02'
 modified: '2026-09-02'
 tags:
 - Company
-apis: []
+- Security
+- Identity
+- Authentication
+- Zero Trust
+- Decentralized Identity
+- Verifiable Credentials
+- Post-Quantum Cryptography
+- Encryption
+- File Transfer
+- Defense
+- Artificial Intelligence
+- Blockchain
+- OpenID Connect
+
+apis:
+- name: VIA Zero Trust Fabric — OpenID Connect Identity
+  description: >-
+    VIA's OpenID Connect / OAuth 2.0 identity layer, operated on a VIA-run Keycloak server.
+    It is the only machine-readable contract VIA publishes: each product realm serves an
+    anonymous OIDC discovery document, and the `ztf_demo` realm additionally serves RFC 8414
+    authorization-server metadata and a UMA 2.0 configuration. Applications integrate with
+    Authorization Code + PKCE (S256) and receive a bearer JWT; Zero Trust Fabric layers
+    passwordless login backed by W3C-style verifiable credentials held in the VIA Wallet,
+    with a wallet signature required to step up for sensitive operations. The realms also
+    advertise DPoP, Pushed Authorization Requests, mTLS-bound access tokens, token exchange,
+    CIBA, the device authorization grant and dynamic client registration.
+  humanURL: https://documentation.ztf.solvewithvia.com/
+  baseURL: https://auth.solvewithvia.com/auth/realms/qt
+  tags:
+  - Authentication
+  - Identity
+  - OpenID Connect
+  - OAuth
+  - Zero Trust
+  properties:
+  - type: Documentation
+    url: https://documentation.ztf.solvewithvia.com/
+  - type: GettingStarted
+    url: https://documentation.ztf.solvewithvia.com/integration/
+  - type: OpenIDConnect
+    url: https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration
+  - type: Authentication
+    url: authentication/via-science-authentication.yml
+  - type: OAuthScopes
+    url: scopes/via-science-scopes.yml
+  - type: Conventions
+    url: conventions/via-science-conventions.yml
+
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+
 common:
+- type: DomainSecurity
+  url: security/via-science-domain-security.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://www.solvewithvia.com/
+- type: DeveloperPortal
+  url: https://documentation.ztf.solvewithvia.com/
+- type: Documentation
+  url: https://documentation.ztf.solvewithvia.com/
+- type: APIReference
+  url: https://documentation.ztf.solvewithvia.com/via-ztf-components/
+- type: GettingStarted
+  url: https://documentation.ztf.solvewithvia.com/integration/
+- type: GitHubOrganization
+  url: https://github.com/viascience
+- type: Support
+  url: https://github.com/viascience/ztf-tutorial/issues
+- type: Blog
+  url: https://www.solvewithvia.com/latest/blog/
+- type: BlogRSS
+  url: https://www.solvewithvia.com/feed/
+- type: SignUp
+  url: https://www.solvewithvia.com/via-ztf/get-a-demo/
+- type: TermsOfService
+  url: https://www.solvewithvia.com/qt-terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.solvewithvia.com/privacy/
+- type: Pricing
+  url: https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4
+- type: Sandbox
+  url: sandbox/via-science-sandbox.yml
+- type: Authentication
+  url: authentication/via-science-authentication.yml
+- type: OAuthScopes
+  url: scopes/via-science-scopes.yml
+- type: WellKnown
+  url: well-known/via-science-well-known.yml
+- type: Conformance
+  url: conformance/via-science-conformance.yml
+- type: Lifecycle
+  url: lifecycle/via-science-lifecycle.yml
+- type: Conventions
+  url: conventions/via-science-conventions.yml
+- type: Components
+  url: components/via-science-components.yml
+- type: Packages
+  url: packages/via-science-packages.yml
+- type: Plans
+  url: plans/via-science-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/via-science-rate-limits.yml
+- type: LLMsTxt
+  url: llms/via-science-llms.txt
+
+x-enrichment:
+  date: '2026-09-02'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    VIA serves real machine-readable contracts — anonymous OpenID Connect, RFC 8414 and
+    UMA 2.0 discovery documents on two Keycloak realms at auth.solvewithvia.com — plus
+    server-rendered ZTF documentation and four runnable reference integrations, all of
+    which were captured. It publishes no OpenAPI, GraphQL SDL, AsyncAPI, Protobuf or WSDL
+    for any product surface, and no MCP server or agent card. The 200 recorded below for
+    documentation.ztf.solvewithvia.com/openapi.json is a soft-200: the docs host answers
+    every unknown path with the same 15,246-byte HTML catch-all, not a spec.
+  evidence:
+    - url: https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration
+      status: 200
+    - url: https://auth.solvewithvia.com/auth/realms/ztf_demo/.well-known/uma2-configuration
+      status: 200
+    - url: https://documentation.ztf.solvewithvia.com/openapi.json
+      status: 200
+    - url: https://www.solvewithvia.com/openapi.json
+      status: 404
+  checked: '2026-09-02'

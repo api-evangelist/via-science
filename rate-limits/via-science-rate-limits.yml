@@ -1,0 +1,27 @@
+generated: '2026-09-02'
+method: searched
+source: >-
+  https://documentation.ztf.solvewithvia.com/ (integration, components, ztf-flow and
+  additional-components pages), https://github.com/viascience/ztf-tutorial and the
+  anonymously-served OIDC discovery documents at auth.solvewithvia.com, all checked
+  2026-09-02.
+name: VIA (Via Science, Inc.) — rate limits
+
+limit_count: 0
+rate_limits: []
+response_headers: []
+exhaustion_status: null
+
+note: >-
+  VIA documents no rate limits anywhere on a publicly reachable surface. There is no REST
+  contract, no developer portal quota page, and the ZTF documentation and tutorials do not
+  mention throttling, quotas, retry guidance, X-RateLimit-*/RateLimit-* headers or
+  Retry-After. The Keycloak identity server at auth.solvewithvia.com will have brute-force
+  and request limits configured, but none of that is exposed in the discovery documents and
+  none of it is documented for integrators. The AWS Marketplace listing meters data
+  transferred by the GB, which is a billing meter and not a rate limit.
+
+gaps:
+  - >-
+    An agent integrating against a VIA-issued token has no published runtime signal telling
+    it when it is being throttled, and no documented backoff contract.
