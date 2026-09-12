@@ -1,0 +1,21 @@
+{
+  "repo": "via-science",
+  "feeds": [
+    {
+      "source": "https://www.solvewithvia.com/latest/blog/",
+      "feed_url": "https://www.solvewithvia.com/latest/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
+    },
+    {
+      "source": "https://github.com/viascience/ztf-tutorial/issues",
+      "feed_url": "https://github.com/viascience/ztf-tutorial/issues",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-09-06T19:17:18Z"
+}
