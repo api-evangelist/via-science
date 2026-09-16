@@ -57,6 +57,11 @@ apis:
   - Authentication
   - Identity
   - OpenID Connect
+  - Zero Trust
+  tags_raw:
+  - Authentication
+  - Identity
+  - OpenID Connect
   - OAuth
   - Zero Trust
   properties:
