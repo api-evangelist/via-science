@@ -63,3 +63,30 @@ note: >-
   absence of a price is visible rather than implied — VIA is a demo-gated enterprise and
   government vendor, and its only itemised public price reaches buyers through AWS
   Marketplace rather than its own site.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - data
+  plans:
+  - name: Quantum Transfer, Sender — AWS Metered
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - data
+    periods: []
+  - name: VIA QT (web application)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
+  - name: VIA ZTF (Zero Trust Fabric)
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods: []
