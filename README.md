@@ -64,18 +64,112 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Via Science, Inc. — trading as **VIA** — is a Somerville, Massachusetts security company
-founded in 2016 that builds decentralized, quantum-resistant data and identity protection
-for governments, defense agencies and large enterprises. Its products are VIA ZTF (Zero
-Trust Fabric), VIA QT (Quantum Transfer), SLAM AI, VIA Wallet and VIA Secure Chain.
+Via Science, Inc. — trading as VIA — is a Somerville, Massachusetts security company founded in 2016 that builds decentralized, quantum-resistant data and identity protection for governments, defense agencies and large enterprises. Its products are VIA ZTF (Zero Trust Fabric), a passwordless authentication fabric built on verifiable credentials, a decentralized identity registry and a mobile holder wallet; VIA QT (Quantum Transfer), an end-to-end quantum-resistant large-file transfer service sold direct and as a metered AWS Marketplace AMI; SLAM AI, which lets organizations use generative AI models without exposing confidential data and keeps an immutable record of every prompt, response and data transformation; VIA Wallet; and VIA Secure Chain. VIA raised a $28M Series B led by Bosch Ventures with BMW i Ventures, MassMutual Ventures and Sentinel Global. Its developer surface is an OpenID Connect identity layer — a Keycloak server at auth.solvewithvia.com that serves anonymous OIDC, RFC 8414 and UMA 2.0 discovery documents per product realm — plus ZTF documentation and four runnable reference integrations on GitHub. VIA publishes no OpenAPI or other resource contract for any product.
 
-VIA's public developer surface is an OpenID Connect identity layer: a Keycloak server at
-`auth.solvewithvia.com` that serves anonymous OIDC, RFC 8414 authorization-server metadata
-and UMA 2.0 discovery documents per product realm, plus server-rendered ZTF documentation
-and four runnable reference integrations on GitHub. VIA publishes no OpenAPI, GraphQL SDL,
-AsyncAPI, Protobuf or WSDL for any product.
+**Areas:** Company · Security · Identity · Authentication · Zero Trust · Decentralized Identity · Verifiable Credentials · Post-Quantum Cryptography · Encryption · File Transfer · Defense · Artificial Intelligence
 
-- Website: https://www.solvewithvia.com/
-- ZTF documentation: https://documentation.ztf.solvewithvia.com/
-- GitHub: https://github.com/viascience
-- OIDC discovery (QT realm): https://auth.solvewithvia.com/auth/realms/qt/.well-known/openid-configuration
+## Via Science on APIs.io
+
+Everything profiled for Via Science is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/via-science/](https://apis.io/providers/via-science/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [VIA Zero Trust Fabric — OpenID Connect Identity](https://apis.io/apis/via-science/via-zero-trust-fabric-openid-connect-identity/) — VIA's OpenID Connect / OAuth 2.0 identity layer, operated on a VIA-run Keycloak server. It is the only machine-readable contract VIA publishes: each product…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Via Science Authentication](https://apis.io/security/via-science/via-science-authentication/)
+- [Via Science Domain Security](https://apis.io/security/via-science/via-science-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Via Science Scopes](https://apis.io/scopes/via-science/via-science-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Via Science Plans Pricing](https://apis.io/plans/via-science/via-science-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Via Science Rate Limits](https://apis.io/rate-limits/via-science/via-science-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.solvewithvia.com/)
+- [Documentation](https://documentation.ztf.solvewithvia.com/)
+- [Getting started](https://documentation.ztf.solvewithvia.com/integration/)
+- [API reference](https://documentation.ztf.solvewithvia.com/via-ztf-components/)
+- [Pricing](https://aws.amazon.com/marketplace/pp/prodview-4occdwn5sc7w4)
+- [Sign up](https://www.solvewithvia.com/via-ztf/get-a-demo/)
+- [Support](https://github.com/viascience/ztf-tutorial/issues)
+- [Blog](https://www.solvewithvia.com/latest/blog/)
+- [Terms of service](https://www.solvewithvia.com/qt-terms-of-service/)
+- [Privacy policy](https://www.solvewithvia.com/privacy/)
+- [GitHub](https://github.com/viascience)
+
+## API Evangelist rating
+
+**Kin Score 35.9** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 45.2 |
+| Access clarity | 76.3 |
+
+**Agent readiness 17.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 31.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/via-science/](https://apis.io/providers/via-science/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Via Science: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/via-science/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
